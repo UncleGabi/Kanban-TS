@@ -1,0 +1,25 @@
+.board-page {
+    max-width: 1400px;
+    margin: 30px;
+
+    .title-section {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-left: 50px;
+        width: 98.5%;
+    }
+
+    .board-list {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        margin: 40px;
+        width: 100%;
+    }
+
+    .button-style {
+        float: right;
+    }
+}
