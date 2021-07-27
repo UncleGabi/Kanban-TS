@@ -10,7 +10,6 @@ import Button from "../common/Button/Button.component";
 
 const CreateBoardInput: React.FC = () => {
     const [created, setCreated] = useState<boolean>(false);
-    const [boardName, setBoardName] = useState<string>("");
     const [success, setSuccess] = useState<string>("");
     const [error, setError] = useState<string>("");
 
@@ -28,7 +27,12 @@ const CreateBoardInput: React.FC = () => {
 
     const updateBoardName = (e: React.ChangeEvent<HTMLInputElement>): void => {
         const { value } = e.target;
-        setBoardName(value);
+        let { newBoard } = state;
+        newBoard = value;
+        state = {
+            ...state,
+            newBoard,
+        };
 
         value.length > 30
             ? setError("Only 30 characters allowed")
@@ -36,33 +40,27 @@ const CreateBoardInput: React.FC = () => {
     };
 
     const saveBoard = (): void => {
-        state = {
-            ...state,
-            newBoard: boardName,
-        };
+        const { newBoard } = state;
 
-        if (!state.newBoard) {
+        if (!newBoard) {
             setError("Board name is required");
             autoFocus();
-        } else if (state.newBoard.length > 30) {
+        } else if (newBoard.length > 30) {
             setError("Only 30 characters allowed");
             autoFocus();
         } else {
             setSuccess("Board saved");
             setTimeout(() => {
-                state.addBoard(boardName);
+                state.addBoard(newBoard);
                 setCreated(!created);
                 setSuccess("");
                 setError("");
-                setBoardName("");
-                console.log(state);
             }, 850);
         }
     };
 
     const cancelCreation = (): void => {
         setCreated(!created);
-        setBoardName("");
         setError("");
     };
 
@@ -75,6 +73,9 @@ const CreateBoardInput: React.FC = () => {
                             id="board-name-input"
                             className="input-form"
                             onChange={updateBoardName}
+                            onKeyUp={(e) => {
+                                if (e.key === "Enter") saveBoard();
+                            }}
                             onKeyDown={(e) => {
                                 if (e.key === "Escape") cancelCreation();
                             }}
