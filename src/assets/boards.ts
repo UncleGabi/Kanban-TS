@@ -1,4 +1,3 @@
-import { proxy } from "valtio";
 import { v4 as uuidv4 } from "uuid";
 
 export interface BoardData {
@@ -29,26 +28,3 @@ export const boardData: BoardData[] = [
         date: new Date("2021.07.15").toLocaleDateString(),
     },
 ];
-
-export interface Store {
-    boards: BoardData[];
-    newBoard: string;
-    addBoard: (boardName: string) => void;
-}
-
-const store = proxy<Store>({
-    boards: boardData,
-    newBoard: "",
-    addBoard: (boardName: string) => {
-        store.boards = [
-            ...store.boards,
-            {
-                id: uuidv4(),
-                name: boardName,
-                date: new Date().toLocaleDateString(),
-            },
-        ];
-    },
-});
-
-export default store;

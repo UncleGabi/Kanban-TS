@@ -1,16 +1,16 @@
-import React from "react";
-import { useSnapshot } from "valtio";
-import store from "../../assets/boards";
+import React, { useContext } from "react";
+import { BoardData } from "../../assets/boards";
+import { BoardContext } from "../../contexts/BoardData.context";
 import BoardCard from "../BoardCard/BoardCard.component";
 import CreateBoardInput from "../CreateBoardInput/CreateBoardInput.component";
 
 import "./BoardList.styles.scss";
 
 const BoardList: React.FC = () => {
-    const { boards } = useSnapshot(store);
+    const { boards } = useContext(BoardContext);
 
     const renderBoards = (): JSX.Element[] => {
-        return boards.map((board) => {
+        return boards.map((board: BoardData) => {
             const { id, name, date } = board;
             return <BoardCard key={id} name={name} date={date} />;
         });

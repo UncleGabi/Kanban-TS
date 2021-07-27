@@ -1,19 +1,19 @@
-import React, { useState } from "react";
-
-import { useSnapshot } from "valtio";
+import React, { useState, useContext } from "react";
+import { v4 as uuid4 } from "uuid";
 
 import "./CreateBoardInput.styles.scss";
 
-import store from "../../assets/boards";
-import { Store } from "../../assets/boards";
 import Button from "../common/Button/Button.component";
+import { BoardContext } from "../../contexts/BoardData.context";
+import { BoardData } from "../../assets/boards";
 
 const CreateBoardInput: React.FC = () => {
     const [created, setCreated] = useState<boolean>(false);
     const [success, setSuccess] = useState<string>("");
+    const [boardName, setBoardName] = useState<string>("");
     const [error, setError] = useState<string>("");
 
-    let state = useSnapshot<Store>(store);
+    const { boards, setBoards } = useContext(BoardContext);
 
     const handleCreate = (): void => {
         setCreated(!created);
@@ -27,12 +27,7 @@ const CreateBoardInput: React.FC = () => {
 
     const updateBoardName = (e: React.ChangeEvent<HTMLInputElement>): void => {
         const { value } = e.target;
-        let { newBoard } = state;
-        newBoard = value;
-        state = {
-            ...state,
-            newBoard,
-        };
+        setBoardName(value);
 
         value.length > 30
             ? setError("Only 30 characters allowed")
@@ -40,18 +35,22 @@ const CreateBoardInput: React.FC = () => {
     };
 
     const saveBoard = (): void => {
-        const { newBoard } = state;
+        const newBoard: BoardData = {
+            id: uuid4(),
+            name: boardName,
+            date: new Date().toLocaleDateString(),
+        };
 
-        if (!newBoard) {
+        if (!boardName) {
             setError("Board name is required");
             autoFocus();
-        } else if (newBoard.length > 30) {
+        } else if (boardName.length > 30) {
             setError("Only 30 characters allowed");
             autoFocus();
         } else {
             setSuccess("Board saved");
             setTimeout(() => {
-                state.addBoard(newBoard);
+                setBoards([...boards, newBoard]);
                 setCreated(!created);
                 setSuccess("");
                 setError("");
