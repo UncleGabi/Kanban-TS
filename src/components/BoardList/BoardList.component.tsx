@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
+import { Link } from "react-router-dom";
 import { BoardData } from "../../assets/boards";
-import { BoardContext } from "../../contexts/BoardData.context";
+import { BoardContext } from "../../contexts/BoardDataContextProvider";
 import BoardCard from "../BoardCard/BoardCard.component";
 import CreateBoardInput from "../CreateBoardInput/CreateBoardInput.component";
 
@@ -12,7 +13,12 @@ const BoardList: React.FC = () => {
     const renderBoards = (): JSX.Element[] => {
         return boards.map((board: BoardData) => {
             const { id, name, date } = board;
-            return <BoardCard key={id} name={name} date={date} />;
+
+            return (
+                <Link key={id} to={`/boards/${id}`} className="title-section">
+                    <BoardCard key={id} name={name} date={date} />
+                </Link>
+            );
         });
     };
 

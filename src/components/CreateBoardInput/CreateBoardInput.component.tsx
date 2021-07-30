@@ -4,7 +4,7 @@ import { v4 as uuid4 } from "uuid";
 import "./CreateBoardInput.styles.scss";
 
 import Button from "../common/Button/Button.component";
-import { BoardContext } from "../../contexts/BoardData.context";
+import { BoardContext } from "../../contexts/BoardDataContextProvider";
 import { BoardData } from "../../assets/boards";
 
 const CreateBoardInput: React.FC = () => {
@@ -13,7 +13,7 @@ const CreateBoardInput: React.FC = () => {
     const [boardName, setBoardName] = useState<string>("");
     const [error, setError] = useState<string>("");
 
-    const { boards, setBoards } = useContext(BoardContext);
+    const { addBoard } = useContext(BoardContext);
 
     const handleCreate = (): void => {
         setCreated(!created);
@@ -39,6 +39,7 @@ const CreateBoardInput: React.FC = () => {
             id: uuid4(),
             name: boardName,
             date: new Date().toLocaleDateString(),
+            columns: [],
         };
 
         if (!boardName) {
@@ -50,7 +51,7 @@ const CreateBoardInput: React.FC = () => {
         } else {
             setSuccess("Board saved");
             setTimeout(() => {
-                setBoards([...boards, newBoard]);
+                addBoard(newBoard);
                 setCreated(!created);
                 setSuccess("");
                 setError("");

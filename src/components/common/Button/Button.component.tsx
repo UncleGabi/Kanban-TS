@@ -2,10 +2,10 @@ import React from "react";
 
 import "./Button.styles.scss";
 
-interface ButtonProps {
-    classes: string;
+export interface ButtonProps {
+    classes?: string;
     text: string;
-    handleClick: React.MouseEventHandler<HTMLButtonElement>;
+    handleClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
 const Button: React.FC<ButtonProps> = ({ handleClick, classes, text }) => {

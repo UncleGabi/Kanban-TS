@@ -1,5 +1,7 @@
+@import "../../assets/style-elements.scss";
+
 .board-page {
-    max-width: 1400px;
+    max-width: 1550px;
     margin: 30px;
 
     .title-section {
@@ -8,6 +10,8 @@
         justify-content: space-between;
         margin-left: 50px;
         width: 98.5%;
+        text-decoration: none;
+        color: black;
     }
 
     .board-list {
