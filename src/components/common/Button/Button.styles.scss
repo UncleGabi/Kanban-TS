@@ -1,6 +1,7 @@
 @import "../../../assets/style-elements.scss";
 
 .button {
+    min-width: 150px;
     padding: 8px 15px;
     background-color: $main-color;
     color: white;
@@ -11,7 +12,13 @@
     font-weight: bold;
     cursor: pointer;
 
+    &:focus {
+        outline: none;
+        background-color: darken($color: $main-color, $amount: 3.5%);
+    }
+
     &:active {
-        transform: scale(0.85);
+        transform: scale(0.95);
+        background-color: darken($color: $main-color, $amount: 10%);
     }
 }

@@ -7,60 +7,38 @@
     margin: 8px;
     background-color: white;
     color: lighten(black, 30%);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 10px;
+    box-shadow: 0px 2px 5px rgba($color: #000000, $alpha: 0.1);
+
+    .content-header {
+        max-height: 75%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        h3 {
+            margin-top: 5px;
+        }
+
+        small {
+            width: fit-content;
+            padding: 3px 5px;
+            border-radius: 15px;
+            color: $main-color;
+            font-weight: 800;
+            background-color: lighten($color: $main-color, $amount: 25%);
+        }
+    }
+
+    .content-footer {
+        display: flex;
+        justify-content: space-between;
+
+        small {
+            color: grey;
+        }
+    }
 }
-
-// .card-container {
-//     margin: 50px auto;
-//     max-width: 95vw;
-//     height: fit-content;
-//     display: flex;
-//     justify-content: center;
-
-//     .card-section {
-//         margin: 0 10px;
-
-//         .section-header {
-//             width: calc(95vw / 4);
-//             height: 50px;
-//             color: darken($color: grey, $amount: 10%);
-//         }
-
-//         .card-content {
-//             border: none;
-//             padding: 15px 20px;
-//             height: 150px;
-//             width: 100%;
-//             border: none;
-//             display: flex;
-//             flex-direction: column;
-//             justify-content: space-between;
-//             background-color: darken(#f5f9fc, 3%);
-//             border-radius: 8px;
-
-//             .content-header {
-//                 height: fit-content;
-//                 padding: 5px;
-
-//                 .label-style {
-//                     background-color: lighten($color: pink, $amount: 5%);
-//                     color: darken(tomato, 10%);
-//                     width: fit-content;
-//                     padding: 2px 5px;
-//                     border-radius: 5px;
-//                     font-weight: bold;
-//                 }
-
-//                 .card-header {
-//                     margin-top: 15px;
-//                 }
-//             }
-
-//             .content-footer {
-//                 display: flex;
-//                 justify-content: space-between;
-//                 font-weight: bold;
-//                 color: darken($color: grey, $amount: 10%);
-//             }
-//         }
-//     }
-// }

@@ -3,7 +3,7 @@ import { useParams } from "react-router";
 import { BoardContext } from "../../contexts/BoardDataContextProvider";
 
 import Column from "../Column/Column.component";
-import Button from "../common/Button/Button.component";
+import CreateColumnInput from "../CreateColumnInput/CreateColumnInput.component";
 
 import "./CardColumns.styles.scss";
 
@@ -13,25 +13,28 @@ export interface ParamType {
 
 const CardList: FC = () => {
     const { boardID } = useParams<ParamType>();
-    const { getBoard, addColumn } = useContext(BoardContext);
-    const currentBoard = getBoard(boardID);
-    const columns = currentBoard?.columns;
+    const { getBoard } = useContext(BoardContext);
 
-    const renderCards = () => {
-        return columns?.map((column) => <Column key={column.title} />);
+    const currentBoard = getBoard(boardID)?.board;
+    const columnList = getBoard(boardID)?.columns;
+
+    const renderColumns = () => {
+        return columnList?.map((column) => (
+            <Column
+                key={column.title}
+                name={column.title}
+                cards={column.cards}
+            />
+        ));
     };
 
     return (
         <div>
             <h1 className="board-name">{currentBoard?.name}</h1>
             <div className="column-container">
-                {renderCards()}
+                {renderColumns()}
 
-                <Button
-                    handleClick={() => addColumn(boardID, "Project X")}
-                    text="Add Column"
-                    classes="add-column-btn"
-                />
+                <CreateColumnInput />
             </div>
         </div>
     );

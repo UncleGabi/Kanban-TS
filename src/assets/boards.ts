@@ -8,6 +8,7 @@ export interface BoardData {
 }
 
 export interface Sections {
+    id: string;
     title: string;
     WIP: number;
     cards: Cards[];
@@ -24,8 +25,6 @@ export interface Cards {
     assignedTo: string;
 }
 
-// Valahogy kiszedni az adott board oszlopait, és arra is csinálni egy state-et!!
-
 export const boardData: BoardData[] = [
     {
         id: uuidv4(),
@@ -33,6 +32,7 @@ export const boardData: BoardData[] = [
         date: new Date("2021.07.23").toLocaleDateString(),
         columns: [
             {
+                id: uuidv4(),
                 title: "Todo",
                 WIP: 3,
                 cards: [
@@ -49,6 +49,7 @@ export const boardData: BoardData[] = [
                 ],
             },
             {
+                id: uuidv4(),
                 title: "In Progress",
                 WIP: 3,
                 cards: [
@@ -65,6 +66,7 @@ export const boardData: BoardData[] = [
                 ],
             },
             {
+                id: uuidv4(),
                 title: "Review",
                 WIP: 3,
                 cards: [
@@ -82,6 +84,7 @@ export const boardData: BoardData[] = [
                 ],
             },
             {
+                id: uuidv4(),
                 title: "Done",
                 WIP: 3,
                 cards: [

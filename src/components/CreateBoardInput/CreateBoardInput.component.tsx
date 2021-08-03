@@ -6,6 +6,7 @@ import "./CreateBoardInput.styles.scss";
 import Button from "../common/Button/Button.component";
 import { BoardContext } from "../../contexts/BoardDataContextProvider";
 import { BoardData } from "../../assets/boards";
+import InputField from "../common/InputField/InputField.component";
 
 const CreateBoardInput: React.FC = () => {
     const [created, setCreated] = useState<boolean>(false);
@@ -19,7 +20,7 @@ const CreateBoardInput: React.FC = () => {
         setCreated(!created);
     };
 
-    const autoFocus = (): void => {
+    const setFocus = (): void => {
         const name_input: HTMLElement | null =
             document.querySelector("#board-name-input");
         name_input?.focus();
@@ -44,10 +45,10 @@ const CreateBoardInput: React.FC = () => {
 
         if (!boardName) {
             setError("Board name is required");
-            autoFocus();
+            setFocus();
         } else if (boardName.length > 30) {
             setError("Only 30 characters allowed");
-            autoFocus();
+            setFocus();
         } else {
             setSuccess("Board saved");
             setTimeout(() => {
@@ -69,20 +70,15 @@ const CreateBoardInput: React.FC = () => {
             {created ? (
                 <div className="container">
                     <div className="form">
-                        <input
-                            id="board-name-input"
-                            className="input-form"
-                            onChange={updateBoardName}
-                            onKeyUp={(e) => {
-                                if (e.key === "Enter") saveBoard();
-                            }}
-                            onKeyDown={(e) => {
-                                if (e.key === "Escape") cancelCreation();
-                            }}
+                        <InputField
+                            handleChange={updateBoardName}
+                            keyUpHandler={saveBoard}
+                            keyDownHandler={cancelCreation}
                             type="text"
-                            placeholder="Board name.."
-                            autoFocus
+                            placeholder="Board name..."
+                            id="board-name-input"
                         />
+
                         <Button
                             handleClick={saveBoard}
                             classes="button-style"
