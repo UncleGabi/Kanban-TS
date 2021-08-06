@@ -20,5 +20,6 @@
     &:active {
         transform: scale(0.95);
         background-color: darken($color: $main-color, $amount: 10%);
+        box-shadow: inset 0px 2px 0px 2px rgba($color: #000000, $alpha: 0.1);
     }
 }

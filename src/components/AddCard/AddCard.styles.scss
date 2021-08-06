@@ -1,0 +1,115 @@
+@import "../../assets/style-elements.scss";
+
+.form-container {
+    background-color: $main-color;
+    width: 450px;
+    height: 500px;
+    margin: 5% 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    border: none;
+    border-radius: 10px;
+
+    h1 {
+        color: #fff;
+        margin-top: 15px;
+    }
+
+    .input-container {
+        height: 70%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+
+        .input-field {
+            width: 80%;
+        }
+    }
+
+    .btn-container {
+        margin-bottom: 15px;
+        width: 70%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .add-card-btn {
+            background-color: white;
+            color: $main-color;
+        }
+
+        .cancel-btn {
+            border: 3px solid white;
+            transform: scale(0.92);
+        }
+    }
+
+    // form {
+    //     transition: all 500ms ease-in-out;
+    //     position: absolute;
+    //     top: $add-card-component-hidden;
+    //     left: 50%;
+    //     transform: translateX(-50%);
+    //     background-color: lighten($main-color, 10%);
+    //     border-radius: 12px;
+    //     height: 500px;
+    //     width: 400px;
+    //     display: flex;
+    //     flex-direction: column;
+    //     align-items: center;
+    //     justify-content: space-between;
+    //     box-shadow: 0 2px 2px 0px rgba($main-color, 0.3);
+
+    //     &.visible {
+    //         position: absolute;
+    //         top: $add-card-component-visible;
+    //     }
+
+    //     .input-container {
+    //         height: 80%;
+    //         width: 80%;
+    //         display: flex;
+    //         flex-direction: column;
+    //         justify-content: space-evenly;
+
+    //         .input-field {
+    //             width: 100%;
+    //             border: none;
+    //             border-radius: 5px;
+    //             height: 30px;
+    //             padding: 8px 10px;
+    //             font-size: 16px;
+
+    //             &:focus {
+    //                 outline: none;
+    //             }
+    //         }
+    //     }
+
+    //     .btn-container {
+    //         margin-bottom: 30px;
+
+    //         .add-card-btn {
+    //             cursor: pointer;
+    //             padding: 8px 15px;
+    //             border: none;
+    //             border-radius: 8px;
+    //             font-size: 17px;
+    //             font-weight: 700;
+    //             background-color: #ecf5fc;
+    //             color: $main-color;
+    //             box-shadow: 0 2px 2px 0px rgba($color: #000000, $alpha: 0.3);
+
+    //             &:active {
+    //                 box-shadow: inset 0 2px 2px 0px
+    //                     rgba($color: #000000, $alpha: 0.3);
+    //                 transform: scale(0.95);
+    //             }
+    //         }
+    //     }
+    // }
+}

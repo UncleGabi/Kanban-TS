@@ -1,6 +1,6 @@
 import React, { FC, useContext, useState } from "react";
 import { useParams } from "react-router";
-import { ParamType } from "../CardList/CardColumns.component";
+import { ParamType } from "../CardColumns/CardColumns.component";
 import { v4 as uuidv4 } from "uuid";
 import { Sections } from "../../assets/boards";
 import { BoardContext } from "../../contexts/BoardDataContextProvider";

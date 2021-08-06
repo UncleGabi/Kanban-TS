@@ -9,9 +9,10 @@ import "./CardColumns.styles.scss";
 
 export interface ParamType {
     boardID: string;
+    columnID: string;
 }
 
-const CardList: FC = () => {
+const CardColumns: FC = () => {
     const { boardID } = useParams<ParamType>();
     const { getBoard } = useContext(BoardContext);
 
@@ -21,7 +22,8 @@ const CardList: FC = () => {
     const renderColumns = () => {
         return columnList?.map((column) => (
             <Column
-                key={column.title}
+                key={column.id}
+                id={column.id}
                 name={column.title}
                 cards={column.cards}
             />
@@ -40,4 +42,4 @@ const CardList: FC = () => {
     );
 };
 
-export default CardList;
+export default CardColumns;

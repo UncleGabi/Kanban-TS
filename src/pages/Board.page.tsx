@@ -1,10 +1,10 @@
 import React from "react";
-import CardList from "../components/CardList/CardColumns.component";
+import CardColumns from "../components/CardColumns/CardColumns.component";
 
 const Boards: React.FC = () => {
     return (
         <div className="boards-page">
-            <CardList />
+            <CardColumns />
         </div>
     );
 };

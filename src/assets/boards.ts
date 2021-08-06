@@ -104,3 +104,11 @@ export const boardData: BoardData[] = [
         ],
     },
 ];
+
+export const setBoardStorage = (data: BoardData[]): void => {
+    localStorage.setItem("boards", JSON.stringify(data));
+};
+
+export const getBoardStorage = (): BoardData[] => {
+    return JSON.parse(localStorage.getItem("boards") || "");
+};

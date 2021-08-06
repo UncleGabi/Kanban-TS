@@ -8,7 +8,7 @@ import CreateBoardInput from "../CreateBoardInput/CreateBoardInput.component";
 import "./BoardList.styles.scss";
 
 const BoardList: React.FC = () => {
-    const { boards } = useContext(BoardContext);
+    const { boards, reset } = useContext(BoardContext);
 
     const renderBoards = (): JSX.Element[] => {
         return boards.map((board: BoardData) => {
@@ -26,6 +26,7 @@ const BoardList: React.FC = () => {
         <div className="board-page">
             <div className="title-section">
                 <h1>My Boards</h1>
+                <button onClick={reset}>Reset</button>
 
                 <CreateBoardInput />
             </div>
