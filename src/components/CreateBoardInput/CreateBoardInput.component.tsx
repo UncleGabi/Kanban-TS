@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useRef, useEffect } from "react";
 import { v4 as uuid4 } from "uuid";
 
 import "./CreateBoardInput.styles.scss";
@@ -13,17 +13,20 @@ const CreateBoardInput: React.FC = () => {
     const [success, setSuccess] = useState<string>("");
     const [boardName, setBoardName] = useState<string>("");
     const [error, setError] = useState<string>("");
+    const addBoardInputRef = useRef<HTMLInputElement>(null);
 
     const { addBoard } = useContext(BoardContext);
+
+    useEffect(() => {
+        addBoardInputRef.current?.focus();
+    }, [created]);
 
     const handleCreate = (): void => {
         setCreated(!created);
     };
 
     const setFocus = (): void => {
-        const name_input: HTMLElement | null =
-            document.querySelector("#board-name-input");
-        name_input?.focus();
+        addBoardInputRef.current?.focus();
     };
 
     const updateBoardName = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -45,6 +48,7 @@ const CreateBoardInput: React.FC = () => {
 
         if (!boardName) {
             setError("Board name is required");
+            addBoardInputRef.current?.focus();
             setFocus();
         } else if (boardName.length > 30) {
             setError("Only 30 characters allowed");
@@ -71,6 +75,7 @@ const CreateBoardInput: React.FC = () => {
                 <div className="container">
                     <div className="form">
                         <InputField
+                            currentRef={addBoardInputRef}
                             handleChange={updateBoardName}
                             keyUpHandler={saveBoard}
                             keyDownHandler={cancelCreation}

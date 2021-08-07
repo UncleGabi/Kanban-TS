@@ -1,4 +1,4 @@
-import React, { FC, useContext, useState } from "react";
+import React, { FC, useContext, useEffect, useRef, useState } from "react";
 import { useParams } from "react-router";
 import { ParamType } from "../CardColumns/CardColumns.component";
 import { v4 as uuidv4 } from "uuid";
@@ -14,8 +14,13 @@ const CreateColumnInput: FC = () => {
     const [created, setCreated] = useState<boolean>(false);
     const [columnName, setColumnName] = useState<string>("");
     const [error, setError] = useState<string>("");
+    const addColumnInputRef = useRef<HTMLInputElement>(null);
 
     const { addColumn } = useContext(BoardContext);
+
+    useEffect(() => {
+        addColumnInputRef.current?.focus();
+    }, [created]);
 
     const handleCreate = (): void => {
         setCreated(!created);
@@ -24,13 +29,13 @@ const CreateColumnInput: FC = () => {
     };
 
     const setFocus = (): void => {
-        const name_input: HTMLElement | null =
-            document.querySelector("#column-name-input");
-        name_input?.focus();
+        addColumnInputRef.current?.focus();
     };
 
     const updateColumnName = (e: React.ChangeEvent<HTMLInputElement>): void => {
         const { value } = e.target;
+
+        if (value) setError("");
 
         setColumnName(value);
     };
@@ -62,6 +67,7 @@ const CreateColumnInput: FC = () => {
                 <div className="container">
                     <div className="form">
                         <InputField
+                            currentRef={addColumnInputRef}
                             handleChange={updateColumnName}
                             keyUpHandler={saveColumn}
                             keyDownHandler={cancelCreation}
