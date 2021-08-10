@@ -1,4 +1,5 @@
 import React, { createContext, useState, FC } from "react";
+
 import {
     boardData,
     BoardData,
@@ -13,7 +14,19 @@ type BoardContextType = {
     addBoard: (newBoard: BoardData) => void;
     getBoard: (id: string) => { board: BoardData; columns: Sections[] } | null;
     addColumn: (boardId: string, newColumn: Sections) => void;
-    addCard: (boardId: string, colName: string, newCard: Cards) => void;
+    addCard: (
+        boardId: string,
+        colName: string,
+        newCard: Cards,
+        index?: number
+    ) => void;
+    handleDrop: (
+        boardID: string,
+        fromColID: string,
+        cardIndex: number,
+        toColID: string,
+        toIndex: number
+    ) => void;
     reset: () => void;
 };
 
@@ -23,6 +36,7 @@ const defaultContextData = {
     getBoard: () => null,
     addColumn: () => [],
     addCard: () => [],
+    handleDrop: () => null,
     reset: () => null,
 };
 
@@ -75,6 +89,34 @@ const BoardListProvider: FC = ({ children }) => {
         setBoardStorage(updatedBoardList);
     };
 
+    const handleDrop = (
+        boardID: string,
+        fromColID: string,
+        fromCardIndex: number,
+        toColumnID: string,
+        toCardIndex: number
+    ) => {
+        const currentBoard = boards.filter((board) => board.id === boardID)[0];
+        const fromColumn = currentBoard.columns.filter(
+            (column) => column.id === fromColID
+        )[0];
+        const cardCopy = fromColumn.cards.filter(
+            (card, index) => index === fromCardIndex
+        )[0];
+        const toColumn = currentBoard.columns.filter(
+            (column) => column.id === toColumnID
+        );
+
+        fromColumn.cards.splice(fromCardIndex, 1);
+        toColumn[0].cards.splice(toCardIndex, 0, cardCopy);
+
+        const updatedBoardList = boards.map((board) => {
+            return board.id === boardID ? currentBoard : board;
+        });
+        setBoards(updatedBoardList);
+        setBoardStorage(updatedBoardList);
+    };
+
     const reset = () => {
         setBoards(boardData);
         setBoardStorage(boardData);
@@ -82,7 +124,15 @@ const BoardListProvider: FC = ({ children }) => {
 
     return (
         <BoardContext.Provider
-            value={{ boards, getBoard, addBoard, addColumn, addCard, reset }}
+            value={{
+                boards,
+                getBoard,
+                addBoard,
+                addColumn,
+                addCard,
+                handleDrop,
+                reset,
+            }}
         >
             {children}
         </BoardContext.Provider>

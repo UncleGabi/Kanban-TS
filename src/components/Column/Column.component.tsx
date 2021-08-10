@@ -7,6 +7,7 @@ import Button from "../common/Button/Button.component";
 
 import "./Column.styles.scss";
 import { Link } from "react-router-dom";
+import { Droppable } from "react-beautiful-dnd";
 
 interface IPropsType {
     id: string;
@@ -20,22 +21,35 @@ const Column: FC<IPropsType> = ({ id, name, cards }) => {
     return (
         <div className="column">
             <h3 className="column-title">{name}</h3>
-            <div className="cardlist">
-                {cards.map((card) => (
-                    <Card
-                        key={card.id}
-                        label={card.label}
-                        title={card.title}
-                        status={card.status}
-                        dueDate={card.dueDate}
-                        assignedTo={card.assignedTo}
-                    />
-                ))}
-
-                <Link to={`/boards/${boardID}/${id}/create-card`}>
-                    <Button classes="button-style" text="Add New Card" />
-                </Link>
-            </div>
+            <Droppable key={id} droppableId={id} type="COLUMN">
+                {(droppableProvided) => (
+                    <div
+                        ref={droppableProvided.innerRef}
+                        className="cardlist"
+                        {...droppableProvided.droppableProps}
+                    >
+                        {cards.map((card, index) => (
+                            <Card
+                                key={card.id}
+                                id={card.id}
+                                index={index}
+                                label={card.label}
+                                title={card.title}
+                                status={card.status}
+                                dueDate={card.dueDate}
+                                assignedTo={card.assignedTo}
+                            />
+                        ))}
+                        {droppableProvided.placeholder}
+                        <Link to={`/boards/${boardID}/${id}/create-card`}>
+                            <Button
+                                classes="button-style add-card-btn"
+                                text="Add New Card"
+                            />
+                        </Link>
+                    </div>
+                )}
+            </Droppable>
         </div>
     );
 };
