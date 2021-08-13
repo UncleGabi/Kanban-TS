@@ -1,11 +1,14 @@
 @import "../../assets/style-elements.scss";
+@import "../../assets/breakpoints.scss";
 
 .form-container {
     background-color: $main-color;
     width: 450px;
     height: 500px;
-    margin: 5% 50%;
-    transform: translateX(-50%);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-45%);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -13,9 +16,28 @@
     border: none;
     border-radius: 10px;
 
+    @include media(">280px", "<=455px") {
+        background-color: white;
+        font-size: 20px;
+    }
+
+    @include media(">455px", "<=770px") {
+        width: 90%;
+        height: 800px;
+        border-radius: 2%;
+    }
+
     h1 {
         color: #fff;
         margin-top: 15px;
+
+        @include media(">280px", "<=455px") {
+            color: $main-color;
+        }
+
+        @include media(">455px", "<=770px") {
+            font-size: 45px;
+        }
     }
 
     .input-container {
@@ -27,6 +49,47 @@
 
         .input-field {
             width: 80%;
+
+            @include media(">280px", "<=455px") {
+                color: $main-color;
+                width: 98%;
+                font-size: 20px;
+            }
+
+            @include media(">455px", "<=770px") {
+                width: 90%;
+                height: 50px;
+                font-size: 25px;
+            }
+        }
+
+        .menu-item {
+            width: 80%;
+            background-color: white;
+            padding: 12px 24px;
+            margin: 0 auto;
+            height: 38px;
+            padding: 0 20px;
+            border: 1px solid #c7d4d9;
+            border-radius: $border-radius;
+            font-size: 16px;
+
+            &:focus {
+                outline: none;
+            }
+        }
+
+        .selected {
+            width: 80%;
+            background-color: white;
+            padding: 12px 24px;
+            margin: 0 auto;
+            height: 38px;
+            padding: 0 20px;
+            border: 1px solid #c7d4d9;
+            border-radius: $border-radius;
+            font-size: 16px;
+            background-color: white;
         }
     }
 
@@ -37,79 +100,46 @@
         align-items: center;
         justify-content: space-between;
 
+        @include media(">280px", "<=455px") {
+            width: 100%;
+            justify-content: space-evenly;
+        }
+
+        @include media(">455px", "<=770px") {
+            height: 60px;
+            margin-bottom: 35px;
+        }
+
         .add-card-btn {
             background-color: white;
             color: $main-color;
+
+            @include media(">280px", "<=455px") {
+                background-color: $main-color;
+                color: white;
+            }
+
+            @include media(">455px", "<=770px") {
+                height: 57px;
+                width: 225px;
+                font-size: 30px;
+            }
         }
 
         .cancel-btn {
             border: 3px solid white;
             transform: scale(0.92);
+
+            @include media(">280px", "<=455px") {
+                background-color: white;
+                color: $main-color;
+            }
+
+            @include media(">455px", "<=770px") {
+                height: 65px;
+                width: 225px;
+                font-size: 30px;
+            }
         }
     }
-
-    // form {
-    //     transition: all 500ms ease-in-out;
-    //     position: absolute;
-    //     top: $add-card-component-hidden;
-    //     left: 50%;
-    //     transform: translateX(-50%);
-    //     background-color: lighten($main-color, 10%);
-    //     border-radius: 12px;
-    //     height: 500px;
-    //     width: 400px;
-    //     display: flex;
-    //     flex-direction: column;
-    //     align-items: center;
-    //     justify-content: space-between;
-    //     box-shadow: 0 2px 2px 0px rgba($main-color, 0.3);
-
-    //     &.visible {
-    //         position: absolute;
-    //         top: $add-card-component-visible;
-    //     }
-
-    //     .input-container {
-    //         height: 80%;
-    //         width: 80%;
-    //         display: flex;
-    //         flex-direction: column;
-    //         justify-content: space-evenly;
-
-    //         .input-field {
-    //             width: 100%;
-    //             border: none;
-    //             border-radius: 5px;
-    //             height: 30px;
-    //             padding: 8px 10px;
-    //             font-size: 16px;
-
-    //             &:focus {
-    //                 outline: none;
-    //             }
-    //         }
-    //     }
-
-    //     .btn-container {
-    //         margin-bottom: 30px;
-
-    //         .add-card-btn {
-    //             cursor: pointer;
-    //             padding: 8px 15px;
-    //             border: none;
-    //             border-radius: 8px;
-    //             font-size: 17px;
-    //             font-weight: 700;
-    //             background-color: #ecf5fc;
-    //             color: $main-color;
-    //             box-shadow: 0 2px 2px 0px rgba($color: #000000, $alpha: 0.3);
-
-    //             &:active {
-    //                 box-shadow: inset 0 2px 2px 0px
-    //                     rgba($color: #000000, $alpha: 0.3);
-    //                 transform: scale(0.95);
-    //             }
-    //         }
-    //     }
-    // }
 }

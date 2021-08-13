@@ -1,13 +1,40 @@
 @import "../../../assets/style-elements.scss";
+@import "../../../assets/breakpoints.scss";
 
 .header {
-    width: 100%;
+    width: 100vw;
     height: 50px;
     background-color: $main-color;
     display: flex;
     align-items: center;
     position: relative;
     padding: 30px 80px;
-    color: white;
-    text-decoration: none;
+    margin-bottom: 30px;
+
+    .arrow {
+        color: white;
+        margin: 5px 4px;
+        cursor: pointer;
+    }
+
+    .link {
+        color: white;
+        text-decoration: none;
+
+        @include media("<=455px") {
+            padding: 0;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.85rem;
+        }
+
+        @include media(">455px", "<=770px") {
+            font-size: 20px;
+        }
+    }
+
+    @include media(">455px", "<=LGdesktop") {
+        padding: 30px;
+    }
 }

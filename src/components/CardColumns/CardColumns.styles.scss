@@ -1,6 +1,19 @@
+@import "../../assets/breakpoints.scss";
+
 .board-name {
     margin: 30px 80px;
     color: lighten(black, 30%);
+
+    @include media("<=420px") {
+        margin: 30px auto;
+        width: fit-content;
+    }
+
+    @include media(">420px", "<=780px") {
+        margin: 30px auto;
+        width: fit-content;
+        font-size: 35px;
+    }
 }
 
 .column-container {
@@ -8,7 +21,18 @@
     width: calc(100vw - 120px);
     display: flex;
     justify-content: flex-start;
-    overflow-x: auto;
+    overflow: auto;
+
+    @include media("<=420px") {
+        margin-left: 0px;
+        width: 100%;
+    }
+
+    @include media(">420px", "<=780px") {
+        margin-left: 0px;
+        padding-left: 10px;
+        width: 100%;
+    }
 
     &::-webkit-scrollbar {
         background-color: inherit;
@@ -30,5 +54,9 @@
         width: 10rem;
         padding: 5px 10px;
         margin-top: 10px;
+
+        @include media(">420px", "<=780px") {
+            transform: scale(110%);
+        }
     }
 }

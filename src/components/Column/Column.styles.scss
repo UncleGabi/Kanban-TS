@@ -1,4 +1,5 @@
 @import "../../assets/style-elements.scss";
+@import "../../assets/breakpoints.scss";
 
 .column {
     min-width: 330px;
@@ -9,7 +10,11 @@
     background-color: #ecf5fc;
     box-shadow: 0px 0px 0px 2px rgba($color: $main-color, $alpha: 1);
     border-radius: 8px;
-    overflow-x: auto;
+    overflow: auto;
+
+    @include media("<=420px") {
+        margin: 5px 40px;
+    }
 
     &::-webkit-scrollbar {
         background-color: transparent;
@@ -30,6 +35,14 @@
     .column-title {
         margin: 1rem;
         color: lighten(black, 30%);
+
+        @include media("<=420px") {
+            font-size: 30px;
+        }
+
+        @include media(">420px", "<=780px") {
+            font-size: 30px;
+        }
     }
 
     .cardlist {
@@ -40,5 +53,17 @@
 
     .add-card-btn {
         margin: 15px 0;
+
+        @include media("<=420px") {
+            width: 300px;
+            height: 50px;
+            font-size: 22px;
+        }
+
+        @include media(">420px", "<=780px") {
+            height: 70px;
+            width: 300px;
+            font-size: 25px;
+        }
     }
 }

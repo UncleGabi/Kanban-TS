@@ -84,16 +84,18 @@ const CreateBoardInput: React.FC = () => {
                             id="board-name-input"
                         />
 
-                        <Button
-                            handleClick={saveBoard}
-                            classes="button-style"
-                            text="Save board"
-                        />
-                        <Button
-                            handleClick={cancelCreation}
-                            classes="button-style cancel-btn"
-                            text="Cancel"
-                        />
+                        <div className="btn-container">
+                            <Button
+                                handleClick={saveBoard}
+                                classes="button-style"
+                                text="Save board"
+                            />
+                            <Button
+                                handleClick={cancelCreation}
+                                classes="button-style cancel-btn"
+                                text="Cancel"
+                            />
+                        </div>
                     </div>
                     <small className="error">{error}</small>
                     <small className="success">{success}</small>

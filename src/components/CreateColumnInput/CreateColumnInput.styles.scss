@@ -1,4 +1,19 @@
+@import "../../assets/breakpoints.scss";
+
 .container {
     margin-top: 8px;
     height: 60px;
+
+    .button-style {
+        @include media("<=780px") {
+            height: 80px;
+            font-size: 25px;
+        }
+
+        @include media(">780px", "<=1376px") {
+            padding: 8px 12px;
+            height: 80px;
+            font-size: 25px;
+        }
+    }
 }

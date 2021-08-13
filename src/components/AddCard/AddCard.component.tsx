@@ -7,6 +7,7 @@ import Button from "../common/Button/Button.component";
 import InputField from "../common/InputField/InputField.component";
 
 import "./AddCard.styles.scss";
+import { FormControl, MenuItem, Select } from "@material-ui/core";
 
 const AddCard: FC = (): JSX.Element => {
     const { boardID, columnID } = useParams<ParamType>();
@@ -19,10 +20,11 @@ const AddCard: FC = (): JSX.Element => {
     const [status, setStatus] = useState<string>("");
     const [assignedTo, setAssignedTo] = useState<string>("");
 
-    const inputRef = useRef<HTMLInputElement>(null);
+    const currentRef = useRef<HTMLInputElement>(null);
+    const dueDateRef = useRef<HTMLInputElement>(null);
 
     useEffect(() => {
-        inputRef.current?.focus();
+        currentRef.current?.focus();
     }, []);
 
     const fieldValues = [
@@ -55,7 +57,7 @@ const AddCard: FC = (): JSX.Element => {
                 <h1>New Card</h1>
                 <div className="input-container">
                     <InputField
-                        currentRef={inputRef}
+                        currentRef={currentRef}
                         id="title-input"
                         classes="input-field"
                         type="text"
@@ -71,25 +73,35 @@ const AddCard: FC = (): JSX.Element => {
                         value={description}
                         name="description"
                         placeholder="Description"
-                        // required={true}
                     />
+                    <FormControl>
+                        <Select
+                            disableUnderline={true}
+                            className="menu-item"
+                            displayEmpty
+                            defaultValue=""
+                            onChange={(e) => {
+                                setLabel(e.target.value as string);
+                                currentRef.current?.focus();
+                            }}
+                        >
+                            <MenuItem value="" disabled>
+                                Select Label
+                            </MenuItem>
+                            <MenuItem value="Frontend">Frontend</MenuItem>
+                            <MenuItem value="Backend">Backend</MenuItem>
+                            <MenuItem value="QA">Quality Assurance</MenuItem>
+                            <MenuItem value="Design">Design</MenuItem>
+                        </Select>
+                    </FormControl>
                     <InputField
-                        classes="input-field"
-                        type="text"
-                        handleChange={(e) => setLabel(e.target.value)}
-                        value={label}
-                        name="label"
-                        placeholder="Label"
-                        // required={true}
-                    />
-                    <InputField
+                        currentRef={dueDateRef}
                         classes="input-field"
                         type="text"
                         handleChange={(e) => setDueDate(e.target.value)}
                         value={dueDate}
                         name="dueDate"
                         placeholder="Due Date"
-                        // required={true}
                     />
                     <InputField
                         classes="input-field"
@@ -98,7 +110,6 @@ const AddCard: FC = (): JSX.Element => {
                         value={status}
                         name="status"
                         placeholder="Status"
-                        // required={true}
                     />
                     <InputField
                         classes="input-field"
@@ -107,7 +118,6 @@ const AddCard: FC = (): JSX.Element => {
                         value={assignedTo}
                         name="assignedTo"
                         placeholder="Assigned To"
-                        // required={true}
                     />
                 </div>
                 <div className="btn-container">

@@ -15,7 +15,11 @@ const BoardList: React.FC = () => {
             const { id, name, date } = board;
 
             return (
-                <Link key={id} to={`/boards/${id}`} className="title-section">
+                <Link
+                    key={id}
+                    to={`/boards/${id}`}
+                    className="boardlist-container"
+                >
                     <BoardCard key={id} name={name} date={date} />
                 </Link>
             );
@@ -26,7 +30,7 @@ const BoardList: React.FC = () => {
         <div className="board-page">
             <div className="title-section">
                 <h1>My Boards</h1>
-                <button onClick={reset}>Reset</button>
+                {/* <button onClick={reset}>Reset</button> */}
 
                 <CreateBoardInput />
             </div>
