@@ -41,10 +41,16 @@ const CreateColumnInput: FC = () => {
     };
 
     const saveColumn = () => {
+        let numberOfWIPs = prompt("No. of WIPs: ", "0") || "";
+
+        while (!parseInt(numberOfWIPs)) {
+            numberOfWIPs = prompt("Please, enter a number like: ", "3") || "";
+        }
+
         const newColumn: Sections = {
             id: uuidv4(),
             title: columnName,
-            WIP: 3,
+            WIP: parseInt(numberOfWIPs) || 3,
             cards: [],
         };
 
@@ -55,6 +61,8 @@ const CreateColumnInput: FC = () => {
             addColumn(boardID, newColumn);
             handleCreate();
         }
+
+        console.log(newColumn);
     };
 
     const cancelCreation = () => {

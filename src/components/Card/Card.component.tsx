@@ -1,7 +1,12 @@
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
+import { BoardContext } from "../../contexts/BoardDataContextProvider";
 import { Draggable } from "react-beautiful-dnd";
 
+import DeleteIcon from "@material-ui/icons/Delete";
+
 import "./Card.styles.scss";
+import { useParams } from "react-router-dom";
+import { ParamType } from "../CardColumns/CardColumns.component";
 
 interface IPropsType {
     id: string;
@@ -11,6 +16,7 @@ interface IPropsType {
     status: string;
     dueDate: string;
     assignedTo: string;
+    columnID: string;
 }
 
 const Card: FC<IPropsType> = ({
@@ -21,19 +27,37 @@ const Card: FC<IPropsType> = ({
     status,
     dueDate,
     assignedTo,
+    columnID,
 }) => {
+    const { boardID } = useParams<ParamType>();
+    const { removeCard } = useContext(BoardContext);
+
     return (
         <Draggable key={id} draggableId={id} index={index}>
-            {(draggableProvider) => (
+            {(provided, snapshot) => (
                 <div
-                    ref={draggableProvider.innerRef}
-                    className="card-content"
-                    {...draggableProvider.draggableProps}
-                    {...draggableProvider.dragHandleProps}
+                    ref={provided.innerRef}
+                    className={`${
+                        snapshot.draggingOver ? "dragged" : ""
+                    } card-content`}
+                    {...provided.draggableProps}
                 >
                     <div className="content-header">
-                        <small className="label-style">{label}</small>
-                        <h3 className="card-header">{title}</h3>
+                        <div className="card-header">
+                            <small className="label-style">{label}</small>
+                            <DeleteIcon
+                                onClick={() =>
+                                    removeCard(boardID, columnID, id)
+                                }
+                                className="delete-icon"
+                            />
+                        </div>
+                        <h3
+                            className="card-header"
+                            {...provided.dragHandleProps}
+                        >
+                            {title}
+                        </h3>
                     </div>
                     <div className="content-footer">
                         <small>{status}</small>

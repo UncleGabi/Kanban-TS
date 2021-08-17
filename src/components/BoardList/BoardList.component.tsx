@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { FC, useContext } from "react";
 import { Link } from "react-router-dom";
 import { BoardData } from "../../assets/boards";
 import { BoardContext } from "../../contexts/BoardDataContextProvider";
@@ -7,7 +7,7 @@ import CreateBoardInput from "../CreateBoardInput/CreateBoardInput.component";
 
 import "./BoardList.styles.scss";
 
-const BoardList: React.FC = () => {
+const BoardList: FC = () => {
     const { boards, reset } = useContext(BoardContext);
 
     const renderBoards = (): JSX.Element[] => {

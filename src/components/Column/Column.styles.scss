@@ -32,16 +32,65 @@
         background-color: rgba($color: #959595, $alpha: 0.5);
     }
 
-    .column-title {
-        margin: 1rem;
-        color: lighten(black, 30%);
+    .column-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
 
-        @include media("<=420px") {
-            font-size: 30px;
+        .column-title {
+            margin: 1rem;
+            color: lighten(black, 30%);
+
+            @include media("<=420px") {
+                font-size: 30px;
+            }
+
+            @include media(">420px", "<=780px") {
+                font-size: 30px;
+            }
         }
 
-        @include media(">420px", "<=780px") {
-            font-size: 30px;
+        .edit {
+            display: flex;
+            align-items: center;
+            position: relative;
+
+            input {
+                position: absolute;
+                font-size: 12px;
+                right: 27px;
+                width: 0;
+                padding: 0;
+                border: none;
+                border-radius: 4px;
+                transition: all 400ms ease-in-out;
+
+                &.edit {
+                    width: 65px;
+                    padding: 8px 10px;
+                    border: 2px solid $main-color;
+                    box-shadow: $box-shadow;
+                }
+
+                &::-webkit-outer-spin-button,
+                &::-webkit-inner-spin-button {
+                    -webkit-appearance: none;
+                    margin: 0;
+                }
+
+                &:focus {
+                    outline: none;
+                    border: 2px solid $main-color;
+                    box-shadow: $box-shadow;
+                }
+            }
+
+            .edit-icon {
+                margin: 0 15px 0 5px;
+                position: absolute;
+                right: 15px;
+                cursor: pointer;
+            }
         }
     }
 

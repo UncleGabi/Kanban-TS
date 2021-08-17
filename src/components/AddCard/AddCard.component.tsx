@@ -52,7 +52,7 @@ const AddCard: FC = (): JSX.Element => {
     };
 
     return (
-        <div>
+        <div className="modal">
             <form className="form-container">
                 <h1>New Card</h1>
                 <div className="input-container">

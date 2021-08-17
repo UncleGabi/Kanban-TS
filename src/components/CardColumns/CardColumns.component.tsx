@@ -25,6 +25,7 @@ const CardColumns: FC = () => {
                 key={column.id}
                 id={column.id}
                 name={column.title}
+                wip={column.WIP}
                 cards={column.cards}
             />
         ));
