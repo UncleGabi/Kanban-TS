@@ -9,9 +9,10 @@ import EditIcon from "@material-ui/icons/Edit";
 import DoneIcon from "@material-ui/icons/Done";
 
 import "./Column.styles.scss";
-import { Link } from "react-router-dom";
 import { Droppable } from "react-beautiful-dnd";
 import { useState } from "react";
+import Popup from "../Popup/Popup.component";
+import AddCard from "../AddCard/AddCard.component";
 
 interface IPropsType {
     id: string;
@@ -26,6 +27,7 @@ const Column: FC<IPropsType> = ({ id, name, cards }) => {
     const [edit, setEdit] = useState<boolean>(false);
     const [WIP, setWIP] = useState<number>(0);
     const wipRef = useRef<HTMLInputElement>(null);
+    const [open, setOpen] = useState<boolean>(false);
 
     const handleEdit = () => {
         setWIP(0);
@@ -94,16 +96,26 @@ const Column: FC<IPropsType> = ({ id, name, cards }) => {
                             />
                         ))}
                         {provided.placeholder}
-                        <Link to={`/boards/${boardID}/${id}/create-card`}>
-                            <Button
-                                classes="button-style add-card-btn"
-                                text="Add New Card"
-                            />
-                        </Link>
+
+                        <Button
+                            text="Add Card"
+                            classes="add-card-btn"
+                            handleClick={() => setOpen(true)}
+                        />
+                        {open && (
+                            <Popup>
+                                <>
+                                    <AddCard
+                                        open={open}
+                                        setOpen={setOpen}
+                                        columnID={id}
+                                    />
+                                </>
+                            </Popup>
+                        )}
                     </div>
                 )}
             </Droppable>
-            {/* {modal && <AddCard modal={modal} setModal={setModal} />} */}
         </div>
     );
 };

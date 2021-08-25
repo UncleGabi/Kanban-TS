@@ -115,4 +115,25 @@
             font-size: 25px;
         }
     }
+
+    .cancel-btn {
+        background-color: $main-color;
+        color: white;
+        transform: scale(0.92);
+
+        &:active {
+            background-color: darken($color: $main-color, $amount: 5%);
+        }
+
+        @include media(">280px", "<=455px") {
+            background-color: white;
+            color: $main-color;
+        }
+
+        @include media(">455px", "<=770px") {
+            height: 65px;
+            width: 225px;
+            font-size: 30px;
+        }
+    }
 }

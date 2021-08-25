@@ -1,18 +1,16 @@
 import React, { FC } from "react";
 
+import "./Popup.styles.scss";
+
 interface IProps {
-    trigger: boolean;
-    children?: React.ReactNode;
+    children: JSX.Element;
 }
 
-const Popup: FC<IProps> = (trigger, children): any => {
-    return trigger ? (
-        <div>
-            <h1>Popup</h1>
-            {children}
+const Popup: FC<IProps> = ({ children }) => {
+    return (
+        <div className="popup-box">
+            <div className="box">{children}</div>
         </div>
-    ) : (
-        ""
     );
 };
 

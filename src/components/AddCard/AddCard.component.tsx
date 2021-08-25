@@ -1,6 +1,6 @@
 import React, { FC, useContext, useEffect, useRef, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { ParamType } from "../CardColumns/CardColumns.component";
 import { BoardContext } from "../../contexts/BoardDataContextProvider";
 import Button from "../common/Button/Button.component";
@@ -9,8 +9,14 @@ import InputField from "../common/InputField/InputField.component";
 import "./AddCard.styles.scss";
 import { FormControl, MenuItem, Select } from "@material-ui/core";
 
-const AddCard: FC = (): JSX.Element => {
-    const { boardID, columnID } = useParams<ParamType>();
+interface IProps {
+    open: boolean;
+    setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+    columnID: string;
+}
+
+const AddCard: FC<IProps> = ({ open, setOpen, columnID }): JSX.Element => {
+    const { boardID } = useParams<ParamType>();
     const { addCard } = useContext(BoardContext);
 
     const [title, setTitle] = useState<string>("");
@@ -22,6 +28,10 @@ const AddCard: FC = (): JSX.Element => {
 
     const currentRef = useRef<HTMLInputElement>(null);
     const dueDateRef = useRef<HTMLInputElement>(null);
+
+    useEffect(() => {
+        dueDateRef.current?.focus();
+    }, [label]);
 
     useEffect(() => {
         currentRef.current?.focus();
@@ -36,9 +46,7 @@ const AddCard: FC = (): JSX.Element => {
         assignedTo,
     ];
 
-    const allFilled = (function handleAddCard() {
-        return fieldValues.filter((value) => value !== "").length === 6;
-    })();
+    const allFilled = fieldValues.filter((value) => value !== "").length === 6;
 
     const newCardData = {
         id: uuidv4(),
@@ -82,7 +90,6 @@ const AddCard: FC = (): JSX.Element => {
                             defaultValue=""
                             onChange={(e) => {
                                 setLabel(e.target.value as string);
-                                currentRef.current?.focus();
                             }}
                         >
                             <MenuItem value="" disabled>
@@ -97,7 +104,7 @@ const AddCard: FC = (): JSX.Element => {
                     <InputField
                         currentRef={dueDateRef}
                         classes="input-field"
-                        type="text"
+                        type="date"
                         handleChange={(e) => setDueDate(e.target.value)}
                         value={dueDate}
                         name="dueDate"
@@ -121,29 +128,23 @@ const AddCard: FC = (): JSX.Element => {
                     />
                 </div>
                 <div className="btn-container">
-                    <Link
-                        to={
-                            allFilled
-                                ? `/boards/${boardID}`
-                                : `/boards/${boardID}/${columnID}/create-card`
-                        }
-                    >
-                        <Button
-                            handleClick={() => {
-                                if (allFilled) {
-                                    addCard(boardID, columnID, newCardData);
-                                } else {
-                                    alert("All fields are required");
-                                }
-                            }}
-                            text="Add Card"
-                            classes="add-card-btn"
-                            type="submit"
-                        />
-                    </Link>
-                    <Link to={`/boards/${boardID}`}>
-                        <Button text="Back" classes="cancel-btn" />
-                    </Link>
+                    <Button
+                        handleClick={() => {
+                            if (allFilled) {
+                                addCard(boardID, columnID, newCardData);
+                            } else {
+                                alert("All fields are required");
+                            }
+                        }}
+                        text="Add Card"
+                        classes="add-card-btn"
+                        type="submit"
+                    />
+                    <Button
+                        handleClick={() => setOpen(!open)}
+                        text="Back"
+                        classes="cancel-btn"
+                    />
                 </div>
             </form>
         </div>

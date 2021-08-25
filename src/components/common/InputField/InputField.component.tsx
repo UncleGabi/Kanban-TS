@@ -38,7 +38,6 @@ const InputField: FC<IPropsType> = ({
         <div className="form">
             <input
                 ref={currentRef}
-                id="board-name-input"
                 className={`input-form ${classes}`}
                 onChange={handleChange}
                 value={value}
