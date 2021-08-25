@@ -26,15 +26,20 @@ const AddCard: FC<IProps> = ({ open, setOpen, columnID }): JSX.Element => {
     const [status, setStatus] = useState<string>("");
     const [assignedTo, setAssignedTo] = useState<string>("");
 
-    const currentRef = useRef<HTMLInputElement>(null);
+    const titleRef = useRef<HTMLInputElement>(null);
     const dueDateRef = useRef<HTMLInputElement>(null);
+    const statusRef = useRef<HTMLInputElement>(null);
+
+    useEffect(() => {
+        statusRef.current?.focus();
+    }, [dueDate]);
 
     useEffect(() => {
         dueDateRef.current?.focus();
     }, [label]);
 
     useEffect(() => {
-        currentRef.current?.focus();
+        titleRef.current?.focus();
     }, []);
 
     const fieldValues = [
@@ -65,7 +70,7 @@ const AddCard: FC<IProps> = ({ open, setOpen, columnID }): JSX.Element => {
                 <h1>New Card</h1>
                 <div className="input-container">
                     <InputField
-                        currentRef={currentRef}
+                        currentRef={titleRef}
                         id="title-input"
                         classes="input-field"
                         type="text"
@@ -111,6 +116,7 @@ const AddCard: FC<IProps> = ({ open, setOpen, columnID }): JSX.Element => {
                         placeholder="Due Date"
                     />
                     <InputField
+                        currentRef={statusRef}
                         classes="input-field"
                         type="text"
                         handleChange={(e) => setStatus(e.target.value)}
